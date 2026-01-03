@@ -14,7 +14,7 @@ for (let i = 1; i <= 1000; i++) {
   btn.style.padding = "10px";
   btn.style.cursor = "pointer";
 
-  btn.onclick = () => {
+  btn.addEventListener("click", () => {
     if (seleccionados.includes(numero)) {
       seleccionados = seleccionados.filter(n => n !== numero);
       btn.style.background = "";
@@ -24,9 +24,8 @@ for (let i = 1; i <= 1000; i++) {
       btn.style.background = "green";
       btn.style.color = "white";
     }
-
     actualizarResumen();
-  };
+  });
 
   contenedor.appendChild(btn);
 }
@@ -42,15 +41,18 @@ function confirmarCompra() {
     return;
   }
 
-  const mensaje = `Hola, quiero comprar los boletos ${seleccionados.join(
-    ", "
-  )} del sorteo Sorteos del Norte GR.\n\nPrecio por boleto: $250 MXN\nTotal: $${seleccionados.length * precio} MXN\nPremio: Ram 2011 Hemi 5.7`;
+  const mensaje =
+    `Hola, quiero comprar los boletos ${seleccionados.join(", ")} ` +
+    del sorteo Sorteos del Norte GR.\n\n +
+    Precio por boleto: $250 MXN\n +
+    Total: $${seleccionados.length * precio} MXN\n +
+    Premio: Ram 2011 Hemi 5.7;
 
   const telefono = "528135535711";
   const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
-
   window.open(url, "_blank");
 }
+
 
 
 
