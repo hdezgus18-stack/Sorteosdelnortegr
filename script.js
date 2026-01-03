@@ -1,58 +1,33 @@
-const contenedor = document.getElementById("boletos");
-const cantidadSpan = document.getElementById("cantidad");
-const totalSpan = document.getElementById("total");
+document.addEventListener("DOMContentLoaded", () => {
+  const contenedor = document.getElementById("boletos");
+  const cantidadSpan = document.getElementById("cantidad");
+  const totalSpan = document.getElementById("total");
 
-let seleccionados = [];
-const precio = 250;
+  let seleccionados = [];
+  const precio = 250;
 
-for (let i = 1; i <= 1000; i++) {
-  const btn = document.createElement("button");
-  const numero = i.toString().padStart(3, "0");
+  for (let i = 1; i <= 1000; i++) {
+    const btn = document.createElement("button");
+    const numero = i.toString().padStart(3, "0");
 
-  btn.textContent = numero;
-  btn.style.margin = "4px";
-  btn.style.padding = "10px";
-  btn.style.cursor = "pointer";
+    btn.textContent = numero;
+    btn.className = "boleto";
 
-  btn.addEventListener("click", () => {
-    if (seleccionados.includes(numero)) {
-      seleccionados = seleccionados.filter(n => n !== numero);
-      btn.style.background = "";
-      btn.style.color = "";
-    } else {
-      seleccionados.push(numero);
-      btn.style.background = "green";
-      btn.style.color = "white";
-    }
-    actualizarResumen();
-  });
+    btn.addEventListener("click", () => {
+      if (seleccionados.includes(numero)) {
+        seleccionados = seleccionados.filter(n => n !== numero);
+        btn.style.background = "";
+        btn.style.color = "";
+      } else {
+        seleccionados.push(numero);
+        btn.style.background = "green";
+        btn.style.color = "white";
+      }
 
-  contenedor.appendChild(btn);
-}
+      cantidadSpan.textContent = seleccionados.length;
+      totalSpan.textContent = seleccionados.length * precio;
+    });
 
-function actualizarResumen() {
-  cantidadSpan.textContent = seleccionados.length;
-  totalSpan.textContent = seleccionados.length * precio;
-}
-
-function confirmarCompra() {
-  if (seleccionados.length === 0) {
-    alert("Selecciona al menos un boleto");
-    return;
+    contenedor.appendChild(btn);
   }
-
-  const mensaje =
-    `Hola, quiero comprar los boletos ${seleccionados.join(", ")} ` +
-    del sorteo Sorteos del Norte GR.\n\n +
-    Precio por boleto: $250 MXN\n +
-    Total: $${seleccionados.length * precio} MXN\n +
-    Premio: Ram 2011 Hemi 5.7;
-
-  const telefono = "528135535711";
-  const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
-  window.open(url, "_blank");
-}
-
-
-
-
+});
