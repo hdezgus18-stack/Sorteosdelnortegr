@@ -7,13 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     boton.textContent = String(i).padStart(3, "0");
 
     boton.onclick = function () {
-      const mensaje = Hola, quiero comprar el boleto #${boton.textContent} del sorteo Sorteos del Norte GR;
+      const mensaje = `Hola, quiero comprar el boleto #${boton.textContent} del sorteo Sorteos del Norte GR`;
       const telefono = "5218135535711";
-      const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
+      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, "_blank");
     };
 
     contenedor.appendChild(boton);
   }
 });
+
 
