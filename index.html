@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sorteos del Norte GR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: red;
+      color: white;
+      padding: 20px;
+    }
+    header img {
+      max-width: 150px;
+    }
+    .precio {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    #boletos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 10px;
+      padding: 20px;
+    }
+    .boleto {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .boleto:hover {
+      background: #d4f4d4;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" alt="Sorteos del Norte GR">
+  <h1>Sorteos del Norte GR</h1>
+  <p>Premio: RAM 2011 HEMI 5.7</p>
+  <p class="precio">Boleto $250 MXN</p>
+</header>
+
+<h2>Selecciona tu boleto</h2>
+
+<!-- ESTE DIV ES CLAVE -->
+<div id="boletos"></div>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
