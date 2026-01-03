@@ -58,6 +58,14 @@
 
 <!-- ESTE DIV ES CLAVE -->
 <div id="boletos"></div>
+  <div id="resumen" style="margin-top:20px; color:white; font-size:18px;">
+  <p>🎟 Boletos seleccionados: <span id="cantidad">0</span></p>
+  <p>💲 Total a pagar: $<span id="total">0</span> MXN</p>
+
+  <button onclick="confirmarCompra()" style="padding:12px 20px; font-size:16px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+    Confirmar compra por WhatsApp
+  </button>
+</div>
 <div style="margin-top:30px; padding:20px; border:2px solid #fff; border-radius:10px; background:#b30000; color:white;">
   <h3>💳 Métodos de pago</h3>
 
@@ -76,4 +84,5 @@
 </body>
 
 </html>
+
 
