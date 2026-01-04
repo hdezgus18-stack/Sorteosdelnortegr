@@ -1,37 +1,49 @@
+// ===== CONFIGURACIÓN =====
 let seleccionados = [];
-const precio = 250;
+const precio = 250; // precio por boleto
+const telefono = "5218135535711"; // tu WhatsApp
 
+// ===== CARGA DE BOLETOS =====
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("boletos");
   const cantidadSpan = document.getElementById("cantidad");
   const totalSpan = document.getElementById("total");
 
+  // Seguridad: si no existe el div, no sigue
+  if (!contenedor) {
+    console.error("No existe el div #boletos");
+    return;
+  }
+
   for (let i = 1; i <= 1000; i++) {
-    const btn = document.createElement("button");
+    const boton = document.createElement("button");
     const numero = i.toString().padStart(3, "0");
 
-    btn.textContent = numero;
-    btn.className = "boleto";
+    boton.textContent = numero;
+    boton.className = "boleto";
 
-    btn.addEventListener("click", () => {
+    boton.addEventListener("click", () => {
       if (seleccionados.includes(numero)) {
-        seleccionados = seleccionados.filter(n => n !== numero);
-        btn.style.background = "";
-        btn.style.color = "";
+        // Quitar selección
+        seleccionados = seleccionados.filter(b => b !== numero);
+        boton.style.background = "";
+        boton.style.color = "";
       } else {
+        // Agregar selección
         seleccionados.push(numero);
-        btn.style.background = "green";
-        btn.style.color = "white";
+        boton.style.background = "green";
+        boton.style.color = "white";
       }
 
       cantidadSpan.textContent = seleccionados.length;
       totalSpan.textContent = seleccionados.length * precio;
     });
 
-    contenedor.appendChild(btn);
+    contenedor.appendChild(boton);
   }
 });
 
+// ===== CONFIRMAR COMPRA POR WHATSAPP =====
 function confirmarCompra() {
   if (seleccionados.length === 0) {
     alert("Selecciona al menos un boleto");
@@ -45,14 +57,14 @@ function confirmarCompra() {
 Hola 👋
 Quiero comprar boletos del sorteo Sorteos del Norte GR.
 
-🎟️ Boletos: ${lista}
+🎟️ Boletos seleccionados:
+${lista}
+
 💰 Total a pagar: $${total} MXN
 
 ¿Me puedes enviar los métodos de pago?
 `;
 
-  const telefono = "5218135535711";
   const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
-
   window.open(url, "_blank");
 }
