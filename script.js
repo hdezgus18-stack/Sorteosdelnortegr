@@ -1,70 +1,56 @@
-// ===== CONFIGURACIÓN =====
-let seleccionados = [];
-const precio = 250; // precio por boleto
-const telefono = "5218135535711"; // tu WhatsApp
-
-// ===== CARGA DE BOLETOS =====
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("boletos");
   const cantidadSpan = document.getElementById("cantidad");
   const totalSpan = document.getElementById("total");
 
-  // Seguridad: si no existe el div, no sigue
   if (!contenedor) {
     console.error("No existe el div #boletos");
     return;
   }
 
+  let seleccionados = [];
+  const precio = 250;
+
   for (let i = 1; i <= 1000; i++) {
-    const boton = document.createElement("button");
+    const btn = document.createElement("button");
+    btn.classList.add("boleto");
+
     const numero = i.toString().padStart(3, "0");
+    btn.textContent = numero;
 
-    boton.textContent = numero;
-    boton.className = "boleto";
-
-    boton.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
       if (seleccionados.includes(numero)) {
-        // Quitar selección
-        seleccionados = seleccionados.filter(b => b !== numero);
-        boton.style.background = "";
-        boton.style.color = "";
+        seleccionados = seleccionados.filter(n => n !== numero);
+        btn.style.background = "white";
+        btn.style.color = "black";
       } else {
-        // Agregar selección
         seleccionados.push(numero);
-        boton.style.background = "green";
-        boton.style.color = "white";
+        btn.style.background = "green";
+        btn.style.color = "white";
       }
 
       cantidadSpan.textContent = seleccionados.length;
       totalSpan.textContent = seleccionados.length * precio;
     });
 
-    contenedor.appendChild(boton);
+    contenedor.appendChild(btn);
   }
+
+  window.confirmarCompra = function () {
+    if (seleccionados.length === 0) {
+      alert("Selecciona al menos un boleto");
+      return;
+    }
+
+    const mensaje =
+      `Hola, quiero comprar los boletos ${seleccionados.join(", ")} ` +
+      del sorteo Sorteos del Norte GR.\n\n +
+      Precio por boleto: $250 MXN\n +
+      Total: $${seleccionados.length * precio} MXN\n +
+      Premio: Ram 2011 Hemi 5.7;
+
+    const telefono = "528135535711";
+    const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
+    window.open(url, "_blank");
+  };
 });
-
-// ===== CONFIRMAR COMPRA POR WHATSAPP =====
-function confirmarCompra() {
-  if (seleccionados.length === 0) {
-    alert("Selecciona al menos un boleto");
-    return;
-  }
-
-  const lista = seleccionados.join(", ");
-  const total = seleccionados.length * precio;
-
-  const mensaje = `
-Hola 👋
-Quiero comprar boletos del sorteo Sorteos del Norte GR.
-
-🎟️ Boletos seleccionados:
-${lista}
-
-💰 Total a pagar: $${total} MXN
-
-¿Me puedes enviar los métodos de pago?
-`;
-
-  const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
-  window.open(url, "_blank");
-}
