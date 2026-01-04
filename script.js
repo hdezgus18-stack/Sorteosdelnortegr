@@ -1,57 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Sorteos del Norte GR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+alert("SCRIPT CARGADO");
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+const contenedor = document.getElementById("boletos");
+const cantidadSpan = document.getElementById("cantidad");
+const totalSpan = document.getElementById("total");
+
+let seleccionados = [];
+const precio = 250;
+
+for (let i = 1; i <= 1000; i++) {
+  const btn = document.createElement("button");
+  btn.className = "boleto";
+
+  const numero = i.toString().padStart(3, "0");
+  btn.textContent = numero;
+
+  btn.onclick = () => {
+    if (seleccionados.includes(numero)) {
+      seleccionados = seleccionados.filter(n => n !== numero);
+      btn.style.background = "white";
+      btn.style.color = "black";
+    } else {
+      seleccionados.push(numero);
+      btn.style.background = "green";
+      btn.style.color = "white";
     }
-    header {
-      background: red;
-      color: white;
-      padding: 20px;
-    }
-    #boletos {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-      gap: 10px;
-      padding: 20px;
-    }
-    button {
-      padding: 10px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
-</head>
 
-<body>
+    cantidadSpan.textContent = seleccionados.length;
+    totalSpan.textContent = seleccionados.length * precio;
+  };
 
-<header>
-  <h1>Sorteos del Norte GR</h1>
-  <p>Premio: Ram 2011 Hemi 5.7</p>
-  <p>Boleto $250 MXN</p>
-</header>
+  contenedor.appendChild(btn);
+}
 
-<h2>Selecciona tus boletos</h2>
+function confirmarCompra() {
+  if (seleccionados.length === 0) {
+    alert("Selecciona al menos un boleto");
+    return;
+  }
 
-<!-- ESTE DIV ES OBLIGATORIO -->
-<div id="boletos"></div>
+  const mensaje =
+    Hola, quiero comprar los boletos ${seleccionados.join(", ")} del sorteo Sorteos del Norte GR.\n +
+    Precio por boleto: $250 MXN\n +
+    Total: $${seleccionados.length * precio} MXN;
 
-<p>Boletos seleccionados: <span id="cantidad">0</span></p>
-<p>Total: $<span id="total">0</span> MXN</p>
-
-<button onclick="confirmarCompra()">Confirmar por WhatsApp</button>
-
-<!-- SCRIPT SIEMPRE AL FINAL -->
-<script src="script.js"></script>
-
-</body>
-</html>
+  const url = https://wa.me/528135535711?text=${encodeURIComponent(mensaje)};
+  window.open(url, "_blank");
+}
