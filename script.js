@@ -1,64 +1,49 @@
-// PRECIO DEL BOLETO
-const PRECIO = 250;
+// ===== CONFIGURACIÓN =====
+const contenedor = document.getElementById("boletos");
+const cantidadSpan = document.getElementById("cantidad");
+const totalSpan = document.getElementById("total");
 
-// VARIABLES
+const PRECIO = 250;
 let seleccionados = [];
 let metodoPago = "";
 
-// CUANDO CARGA LA PÁGINA
-document.addEventListener("DOMContentLoaded", () => {
-  const contenedor = document.getElementById("boletos");
+// ===== GENERAR BOLETOS 001 AL 1000 =====
+for (let i = 1; i <= 1000; i++) {
+  const btn = document.createElement("button");
+  const numero = i.toString().padStart(3, "0");
 
-  // 🔴 SI ESTE DIV NO EXISTE, NO APARECE NADA
-  if (!contenedor) {
-    alert("ERROR: No existe el div #boletos");
-    return;
-  }
+  btn.textContent = numero;
+  btn.className = "boleto";
 
-  // CREAR BOLETOS 001 - 1000
-  for (let i = 1; i <= 1000; i++) {
-    const btn = document.createElement("button");
-    const numero = String(i).padStart(3, "0");
+  btn.onclick = () => {
+    if (seleccionados.includes(numero)) {
+      seleccionados = seleccionados.filter(n => n !== numero);
+      btn.style.background = "white";
+      btn.style.color = "black";
+    } else {
+      seleccionados.push(numero);
+      btn.style.background = "green";
+      btn.style.color = "white";
+    }
+    actualizarResumen();
+  };
 
-    btn.textContent = numero;
-    btn.className = "boleto";
-
-    btn.onclick = () => toggleBoleto(numero, btn);
-
-    contenedor.appendChild(btn);
-  }
-
-  actualizarResumen();
-});
-
-// SELECCIONAR / QUITAR BOLETO
-function toggleBoleto(numero, btn) {
-  if (seleccionados.includes(numero)) {
-    seleccionados = seleccionados.filter(n => n !== numero);
-    btn.style.background = "white";
-    btn.style.color = "black";
-  } else {
-    seleccionados.push(numero);
-    btn.style.background = "green";
-    btn.style.color = "white";
-  }
-
-  actualizarResumen();
+  contenedor.appendChild(btn);
 }
 
-// ACTUALIZAR TOTAL
+// ===== ACTUALIZAR RESUMEN =====
 function actualizarResumen() {
-  document.getElementById("cantidad").textContent = seleccionados.length;
-  document.getElementById("total").textContent = seleccionados.length * PRECIO;
+  cantidadSpan.textContent = seleccionados.length;
+  totalSpan.textContent = seleccionados.length * PRECIO;
 }
 
-// MÉTODO DE PAGO
+// ===== MÉTODO DE PAGO =====
 function seleccionarPago(pago) {
   metodoPago = pago;
-  alert("Método de pago: " + pago);
+  alert("Método de pago seleccionado: " + pago);
 }
 
-// WHATSAPP
+// ===== CONFIRMAR COMPRA =====
 function confirmarCompra() {
   if (seleccionados.length === 0) {
     alert("Selecciona al menos un boleto");
@@ -70,14 +55,16 @@ function confirmarCompra() {
     return;
   }
 
-  const mensaje =
-    Hola, quiero comprar los boletos:\n +
-    ${seleccionados.join(", ")}\n +
-    Total: $${seleccionados.length * PRECIO} MXN\n +
-    Pago: ${metodoPago};
+  const mensaje = `
+Hola, quiero comprar boletos.
 
-  const telefono = "521XXXXXXXXXX"; // 👈 TU NÚMERO
+Boletos: ${seleccionados.join(", ")}
+Cantidad: ${seleccionados.length}
+Total: $${seleccionados.length * PRECIO} MXN
+Método de pago: ${metodoPago}
+`;
+
+  const telefono = "52TU_NUMERO_AQUI";
   const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
-
   window.open(url, "_blank");
 }
