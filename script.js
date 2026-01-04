@@ -1,73 +1,83 @@
+// PRECIO DEL BOLETO
+const PRECIO = 250;
+
+// VARIABLES
+let seleccionados = [];
+let metodoPago = "";
+
+// CUANDO CARGA LA PÁGINA
 document.addEventListener("DOMContentLoaded", () => {
-
-  // CONFIGURACIÓN
-  const PRECIO_BOLETO = 250;
-  const TELEFONO = "5218135535711"; // cambia si es necesario
-
-  // ELEMENTOS
   const contenedor = document.getElementById("boletos");
-  const cantidadSpan = document.getElementById("cantidad");
-  const totalSpan = document.getElementById("total");
 
-  // VARIABLES
-  let seleccionados = [];
-  let metodoPago = "Transferencia";
+  // 🔴 SI ESTE DIV NO EXISTE, NO APARECE NADA
+  if (!contenedor) {
+    alert("ERROR: No existe el div #boletos");
+    return;
+  }
 
-  // CREAR BOLETOS 001 AL 1000
+  // CREAR BOLETOS 001 - 1000
   for (let i = 1; i <= 1000; i++) {
-    const boton = document.createElement("button");
+    const btn = document.createElement("button");
     const numero = String(i).padStart(3, "0");
 
-    boton.textContent = numero;
-    boton.className = "boleto";
+    btn.textContent = numero;
+    btn.className = "boleto";
 
-    boton.addEventListener("click", () => {
-      if (seleccionados.includes(numero)) {
-        // quitar
-        seleccionados = seleccionados.filter(n => n !== numero);
-        boton.style.background = "";
-        boton.style.color = "";
-      } else {
-        // agregar
-        seleccionados.push(numero);
-        boton.style.background = "green";
-        boton.style.color = "white";
-      }
-      actualizarResumen();
-    });
+    btn.onclick = () => toggleBoleto(numero, btn);
 
-    contenedor.appendChild(boton);
+    contenedor.appendChild(btn);
   }
 
-  // ACTUALIZAR RESUMEN
-  function actualizarResumen() {
-    cantidadSpan.textContent = seleccionados.length;
-    totalSpan.textContent = seleccionados.length * PRECIO_BOLETO;
-  }
-
-  // MÉTODO DE PAGO (puedes ampliar después)
-  window.seleccionarPago = function (metodo) {
-    metodoPago = metodo;
-  };
-
-  // CONFIRMAR COMPRA
-  window.confirmarCompra = function () {
-    if (seleccionados.length === 0) {
-      alert("Selecciona al menos un boleto");
-      return;
-    }
-
-    const mensaje =
-      Hola, quiero comprar los siguientes boletos:\n +
-      ${seleccionados.join(", ")}\n\n +
-      Cantidad: ${seleccionados.length}\n +
-      Total: $${seleccionados.length * PRECIO_BOLETO} MXN\n +
-      Método de pago: ${metodoPago};
-
-    const url =
-      https://wa.me/${TELEFONO}?text=${encodeURIComponent(mensaje)};
-
-    window.open(url, "_blank");
-  };
-
+  actualizarResumen();
 });
+
+// SELECCIONAR / QUITAR BOLETO
+function toggleBoleto(numero, btn) {
+  if (seleccionados.includes(numero)) {
+    seleccionados = seleccionados.filter(n => n !== numero);
+    btn.style.background = "white";
+    btn.style.color = "black";
+  } else {
+    seleccionados.push(numero);
+    btn.style.background = "green";
+    btn.style.color = "white";
+  }
+
+  actualizarResumen();
+}
+
+// ACTUALIZAR TOTAL
+function actualizarResumen() {
+  document.getElementById("cantidad").textContent = seleccionados.length;
+  document.getElementById("total").textContent = seleccionados.length * PRECIO;
+}
+
+// MÉTODO DE PAGO
+function seleccionarPago(pago) {
+  metodoPago = pago;
+  alert("Método de pago: " + pago);
+}
+
+// WHATSAPP
+function confirmarCompra() {
+  if (seleccionados.length === 0) {
+    alert("Selecciona al menos un boleto");
+    return;
+  }
+
+  if (!metodoPago) {
+    alert("Selecciona un método de pago");
+    return;
+  }
+
+  const mensaje =
+    Hola, quiero comprar los boletos:\n +
+    ${seleccionados.join(", ")}\n +
+    Total: $${seleccionados.length * PRECIO} MXN\n +
+    Pago: ${metodoPago};
+
+  const telefono = "521XXXXXXXXXX"; // 👈 TU NÚMERO
+  const url = https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)};
+
+  window.open(url, "_blank");
+}
