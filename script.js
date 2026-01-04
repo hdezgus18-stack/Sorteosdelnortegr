@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
+    // 🔴 ESTA LÍNEA ES LA QUE FALTABA
     contenedor.appendChild(div);
   }
 
@@ -40,5 +41,19 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("total").innerText = seleccionados.length * precioBoleto;
   }
 
-  window.confirmarCompra = function () {
-    const nombre = document.getElementById("nombre").value;
+});
+
+function confirmarCompra() {
+  const cantidad = document.getElementById("cantidad").innerText;
+  const total = document.getElementById("total").innerText;
+
+  if (cantidad == 0) {
+    alert("Selecciona al menos un boleto");
+    return;
+  }
+
+  const mensaje = Hola, quiero comprar ${cantidad} boletos.\nTotal: $${total} MXN;
+  const telefono = "5218135535711";
+
+  window.open(https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}, "_blank");
+}
