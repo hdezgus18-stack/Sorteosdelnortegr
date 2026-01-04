@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sorteos del Norte GR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+  margin:0;
+  text-align:center;
+}
+header {
+  background:#b30000;
+  color:white;
+  padding:20px;
+}
+header img {
+  max-width:150px;
+}
+#galeria img {
+  max-width:250px;
+  margin:10px;
+  border-radius:10px;
+}
+#boletos {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(60px,1fr));
+  gap:10px;
+  padding:20px;
+}
+.boleto {
+  background:white;
+  border:1px solid #ccc;
+  padding:10px;
+  cursor:pointer;
+  border-radius:5px;
+  font-weight:bold;
+}
+.boleto.seleccionado {
+  background:#4CAF50;
+  color:white;
+}
+.resumen {
+  background:#fff;
+  padding:20px;
+  margin:20px;
+  border-radius:10px;
+}
+button {
+  padding:12px 20px;
+  font-size:16px;
+  background:green;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" alt="Sorteos del Norte GR">
+  <h1>Sorteos del Norte GR</h1>
+  <p>🎁 Premio: RAM 2011 HEMI 5.7</p>
+  <p>🎟 Boleto: $250 MXN</p>
+</header>
+
+<section id="galeria">
+  <h2>📸 Imágenes del premio</h2>
+  <img src="premio1.jpg">
+  <img src="premio2.jpg">
+</section>
+
+<h2>Selecciona tus boletos</h2>
+<div id="boletos"></div>
+
+<div class="resumen">
+  <p>👤 Nombre</p>
+  <input id="nombre" placeholder="Tu nombre">
+  <p>📞 Teléfono</p>
+  <input id="telefono" placeholder="Tu teléfono">
+
+  <p>🎟 Boletos seleccionados: <span id="cantidad">0</span></p>
+  <p>💲 Total: $<span id="total">0</span> MXN</p>
+
+  <button onclick="confirmarCompra()">Comprar por WhatsApp</button>
+</div>
+
+<div class="resumen">
+  <h3>💳 Métodos de pago</h3>
+  <p>✔ Transferencia bancaria</p>
+  <p>✔ Depósito en efectivo</p>
+  <p>📲 Los datos se envían por WhatsApp</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
