@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorteos del Norte GR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      text-align: center;
+    }
+    header {
+      background: #b30000;
+      color: white;
+      padding: 20px;
+    }
+    #boletos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 10px;
+      padding: 20px;
+    }
+    .boleto {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .boleto.seleccionado {
+      background: green;
+      color: white;
+    }
+    .seccion {
+      background: white;
+      margin: 20px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    input {
+      padding: 10px;
+      width: 90%;
+      max-width: 300px;
+      margin: 5px 0;
+    }
+    button {
+      background: green;
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Sorteos del Norte GR</h1>
+  <p>🎁 Premio: RAM 2011 HEMI 5.7</p>
+  <p>🎟 Precio del boleto: <strong>$250 MXN</strong></p>
+</header>
+
+<h2>Selecciona tus boletos</h2>
+
+<!-- BOLETOS -->
+<div id="boletos"></div>
+
+<!-- RESUMEN -->
+<div class="seccion">
+  <p>🎟 Boletos seleccionados: <span id="cantidad">0</span></p>
+  <p>💰 Total a pagar: $<span id="total">0</span> MXN</p>
+</div>
+
+<!-- DATOS DEL CLIENTE -->
+<div class="seccion">
+  <h3>📋 Tus datos</h3>
+  <input type="text" id="nombre" placeholder="Nombre completo">
+  <br>
+  <input type="tel" id="telefono" placeholder="Teléfono">
+</div>
+
+<!-- FORMAS DE PAGO -->
+<div class="seccion">
+  <h3>💳 Formas de pago</h3>
+  <p>✔ Transferencia bancaria</p>
+  <p>✔ Depósito en efectivo</p>
+  <p><strong>📌 Nota:</strong> Los datos de pago se envían por WhatsApp.</p>
+</div>
+
+<button onclick="confirmarCompra()">Comprar por WhatsApp</button>
+
+<script>
+  const contenedor = document.getElementById("boletos");
+  const cantidadSpan = document.getElementById("cantidad");
+  const totalSpan = document.getElementById("total");
+  const nombreInput = document.getElementById("nombre");
+  const telefonoInput = document.getElementById("telefono");
+
+  let seleccionados = [];
+  const precio = 250;
+
+  // GENERAR BOLETOS 001 - 1000
+  for (let i = 1; i <= 1000; i++) {
+    const btn = document.createElement("div");
+    btn.className = "boleto";
+    const numero = i.toString().padStart(3, "0");
+    btn.textContent = numero;
+
+    btn.onclick = () => {
+      if (seleccionados.includes(numero)) {
+        seleccionados = seleccionados.filter(n => n !== numero);
+        btn.classList.remove("seleccionado");
+      } else {
+        seleccionados.push(numero);
+        btn.classList.add("seleccionado");
+      }
+
+      cantidadSpan.textContent = seleccionados.length;
+      totalSpan.textContent = seleccionados.length * precio;
+    };
+
+    contenedor.appendChild(btn);
+  }
+
+  function confirmarCompra() {
+    const nombre = nombreInput.value.trim();
+    const telefonoCliente = telefonoInput.value.trim();
+
+    if (seleccionados.length === 0) {
+      alert("Selecciona al menos un boleto");
+      return;
+    }
+    if (!nombre || !telefonoCliente) {
+      alert("Ingresa tu nombre y teléfono");
+      return;
+    }
+
+    const mensaje =
+      Hola, quiero comprar boletos del sorteo *Sorteos del Norte GR*.\n\n +
+      👤 Nombre: ${nombre}\n +
+      📞 Teléfono: ${telefonoCliente}\n\n +
+      🎟 Boletos: ${seleccionados.join(", ")}\n +
+      💲 Precio por boleto: $250 MXN\n +
+      💰 Total: $${seleccionados.length * precio} MXN\n\n +
+      🎁 Premio: RAM 2011 HEMI 5.7;
+
+    const telefonoAdmin = "528135535711";
+    const url = https://wa.me/${telefonoAdmin}?text=${encodeURIComponent(mensaje)};
+    window.open(url, "_blank");
+  }
+</script>
+
+</body>
+</html>
