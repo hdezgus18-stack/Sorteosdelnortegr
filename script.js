@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   for (let i = 1; i <= 1000; i++) {
     const numero = i.toString().padStart(3, "0");
     const div = document.createElement("div");
+
     div.className = "boleto";
     div.innerText = numero;
 
@@ -28,32 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
           div.style.background = "#4CAF50";
           div.style.color = "white";
         }
-        actualizarResumen();
       });
     }
 
-    // 🔴 ESTA LÍNEA ES LA QUE FALTABA
     contenedor.appendChild(div);
   }
 
-  function actualizarResumen() {
-    document.getElementById("cantidad").innerText = seleccionados.length;
-    document.getElementById("total").innerText = seleccionados.length * precioBoleto;
-  }
+  });
 
 });
-
-function confirmarCompra() {
-  const cantidad = document.getElementById("cantidad").innerText;
-  const total = document.getElementById("total").innerText;
-
-  if (cantidad == 0) {
-    alert("Selecciona al menos un boleto");
-    return;
-  }
-
-  const mensaje = Hola, quiero comprar ${cantidad} boletos.\nTotal: $${total} MXN;
-  const telefono = "5218135535711";
-
-  window.open(https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}, "_blank");
-}
