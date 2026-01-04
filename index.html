@@ -1,105 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Sorteos del Norte GR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    #boletos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 10px;
-  padding: 20px;
-}
-
-.boleto {
-  padding: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  background: #fff;
-  border: 1px solid #333;
-  border-radius: 5px;
-}
     body {
       font-family: Arial, sans-serif;
       background: #f2f2f2;
-      text-align: center;
       margin: 0;
-      padding: 0;
+      text-align: center;
     }
+
     header {
       background: red;
       color: white;
       padding: 20px;
     }
+
     header img {
       max-width: 150px;
+      margin-bottom: 10px;
     }
+
     .precio {
       font-size: 20px;
       margin: 10px 0;
     }
+
     #boletos {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
       gap: 10px;
       padding: 20px;
+      max-width: 1200px;
+      margin: auto;
     }
+
     .boleto {
-      background: white;
-      border: 1px solid #ccc;
       padding: 10px;
       cursor: pointer;
+      background: white;
+      border: 1px solid #333;
       border-radius: 5px;
-      font-weight: bold;
+      font-size: 14px;
     }
+
     .boleto:hover {
-      background: #d4f4d4;
+      background: #eee;
+    }
+
+    .resumen {
+      margin: 20px;
+      font-size: 18px;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ebe5d;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <img src="logo.png" alt="Sorteos del Norte GR">
-  <h1>Sorteos del Norte GR</h1>
-  <p>Premio: RAM 2011 HEMI 5.7</p>
-  <p class="precio">Boleto $250 MXN</p>
-</header>
+  <header>
+    <img src="logo.png" alt="Sorteos del Norte GR">
+    <h1>Sorteos del Norte GR</h1>
+    <p>Premio: RAM 2011 HEMI 5.7</p>
+    <p class="precio">Boleto $250 MXN</p>
+  </header>
 
-<h2>Selecciona tu boleto</h2>
+  <h2>Selecciona tu boleto</h2>
 
-<!-- ESTE DIV ES CLAVE -->
-<div id="boletos"></div>
-  <div id="resumen" style="margin-top:20px; color:black; font-size:18px;">
-  <p>🎟 Boletos seleccionados: <span id="cantidad">0</span></p>
-  <p>💲 Total a pagar: $<span id="total">0</span> MXN</p>
+  <div id="boletos"></div>
 
-  <button onclick="confirmarCompra()" style="padding:12px 20px; font-size:16px; background:green; color:white; border:none; border-radius:8px; cursor:pointer;">
+  <div class="resumen">
+    Boletos seleccionados: <strong><span id="cantidad">0</span></strong><br>
+    Total: $<strong><span id="total">0</span></strong> MXN
+  </div>
+
+  <button class="btn-whatsapp" onclick="confirmarCompra()">
     Confirmar compra por WhatsApp
   </button>
-</div>
-<div style="margin-top:30px; padding:20px; border:2px solid #fff; border-radius:10px; background:#b30000; color:white;">
-  <h3>💳 Métodos de pago</h3>
 
-  <p>✔ Transferencia bancaria</p>
-  <p>✔ Depósito en efectivo</p>
-  <p>✔ Pago por WhatsApp</p>
-
-  <hr style="border-color:black;">
-
-  <p><strong>🎟 Precio del boleto:</strong> $250 MXN</p>
-  <p><strong>📌 Importante:</strong> Después de elegir tus boletos, envía mensaje por WhatsApp para recibir los datos de pago.</p>
-</div>
-<!-- SCRIPT -->
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
-
 </html>
-
-
-
-
